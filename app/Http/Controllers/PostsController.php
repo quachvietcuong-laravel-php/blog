@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Posts;
 use App\Category;
+use App\Comments;
+use App\Like;
+use App\Customers; 
+use App\Image; 
 
 class PostsController extends Controller
 {
@@ -105,5 +109,23 @@ class PostsController extends Controller
             'users_id' => Auth::user()->id,
         ]);
         return redirect('admin/posts/edit/' . $id)->with('thongbao' , 'Sửa thành công');
+    }
+
+    public function getAllPostDetails($id){
+        $posts = Posts::where('id' , $id)->first();
+        $comment = Comments::where('posts_id' , $posts->id)->paginate(5);
+        $like    = Like::where('posts_id' , $posts->id)->where('status' , 1)->get();
+        $image   = Image::where('posts_id' , $posts->id)->get();
+        return view('admin.posts.details' , compact('posts' , 'comment' , 'like' , 'image'));
+    }
+
+    public function getHideCommentPosts($id , $posts_id){
+        $comment = Comments::where('id' , $id)->update(['status' => 0]);
+        return redirect('admin/posts/details/' . $posts_id)->with('thongbao' , 'Ẩn bình luận thành công');
+    }
+
+    public function getShowCommentPosts($id , $posts_id){
+        $comment = Comments::where('id' , $id)->update(['status' => 1]);
+        return redirect('admin/posts/details/' . $posts_id)->with('thongbao' , 'Hiện bình luận thành công');
     }
 }

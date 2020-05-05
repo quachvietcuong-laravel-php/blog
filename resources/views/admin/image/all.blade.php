@@ -5,7 +5,7 @@
 <div class="table-agile-info">
   	<div class="panel panel-default">
 	    <div class="panel-heading">
-	     	Danh sách bài viết
+	     	Danh sách hình ảnh bài viết
 	    </div>
 	    <div class="row w3-res-tb">
 	  		<div class="col-sm-3">
@@ -36,28 +36,22 @@
 	        	<thead>
 		          	<tr>
 		            	<th>ID</th>
-		            	<th>Tên bài viết</th>
-			            <th>Tên danh mục</th>
-			            <th>Người đăng</th>
-			            <th>Tiêu đề</th>
-			            <th>Nội dung</th>
-			            <th>Chi tiết</th>
+		            	<th>Hình ảnh</th>
+			            <th>Tên bài viết</th>
 			            <th style="width:30px;"></th>
 		          	</tr>
 	        	</thead>
 		        <tbody>
-		        	@foreach($posts as $pt)
+		        	@foreach($image as $img)
 			          	<tr>
-			          		<td>{{ $pt->id }}</td>
-			          		<td>{{ $pt->name }}</td>
-			          		<td>{{ $pt->category->name }}</td>
-			          		<td>{{ $pt->user->name }}</td>
-			          		<td>{{ $pt->title }}</td>
-			          		<td>{{ $pt->content }}</td>
-			          		<td><a href="{{url('admin/posts/details/' . $pt->id)}}">Xem</a></td>
+			          		<td>{{ $img->id }}</td>
 			          		<td>
-			          			<a href="{{url('admin/posts/delete/' . $pt->id)}}">Xóa</a>
-			          			<a href="{{url('admin/posts/edit/' . $pt->id)}}">Sửa</a>
+			          			<img width="100px;" src="{{url('uploads/posts/' . $img->name)}}">
+			          		</td>
+			          		<td>{{ $img->posts->name }}</td>
+			          		<td>
+			          			<a href="{{url('admin/image/delete/' . $img->id)}}">Xóa</a>
+			          			<a href="{{url('admin/image/edit/' . $img->id)}}">Sửa</a>
 			          		</td>
 			          	</tr>
 		          	@endforeach	            
@@ -68,10 +62,10 @@
 	    <footer class="panel-footer">
 	      	<div class="row">
 		        <div class="col-sm-5 text-center">
-		          	<small class="text-muted inline m-t-sm m-b-sm">Tổng: {{ $posts->total() }} danh mục</small>
+		          	<small class="text-muted inline m-t-sm m-b-sm">Tổng: {{ $image->total() }} hình ảnh</small>
 		        </div>
 		        <div class="col-sm-7 text-right text-center-xs">                
-		          	{{ $posts->links() }}
+		          	{{ $image->links() }}
 	    		</div>
 	      	</div>
     	</footer>

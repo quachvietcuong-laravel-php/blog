@@ -31,6 +31,17 @@
                         <li><a href="{{url('admin/posts/all')}}">Danh sách</a></li>
                     </ul>
                 </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Image</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{url('admin/image/add')}}">Thêm mới</a></li>
+                        <li><a href="{{url('admin/image/all')}}">Danh sách</a></li>
+                    </ul>
+                </li>
             </ul>            
         </div>
         <!-- sidebar menu end-->

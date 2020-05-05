@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Admin 
+
 Route::get('/admin-login', 'AdminController@getAdminLogin');
 Route::post('/admin-login', 'AdminController@postAdminLogin');
 
 Route::get('/admin-logout', 'AdminController@getAdminLogout');
 
-Route::group(['prefix' => 'admin'] , function(){
+Route::group(['prefix' => 'admin' , 'middleware' => 'adminLogin'] , function(){
 	Route::get('/dashboard' , 'AdminController@getAdminDashboard');
 
 	//category
@@ -41,9 +43,30 @@ Route::group(['prefix' => 'admin'] , function(){
 
 		Route::get('/all' , 'PostsController@getAllPost');
 
+		Route::get('/details/{id}' , 'PostsController@getAllPostDetails');
+
+		Route::get('/details/hide/{id}/{posts_id}' , 'PostsController@getHideCommentPosts');
+		Route::get('/details/show/{id}/{posts_id}' , 'PostsController@getShowCommentPosts');
+
 		Route::get('/delete/{id}' , 'PostsController@getDeletePost');
 
 		Route::get('/edit/{id}' , 'PostsController@getEditPost');
 		Route::post('/edit/{id}' , 'PostsController@postEditPost');
-	});	
+	});
+
+	//image
+	Route::group(['prefix' => 'image'] , function(){
+		Route::get('/add' , 'ImageController@getAddImage');
+		Route::post('/add' , 'ImageController@postAddImage');
+
+		Route::get('/all' , 'ImageController@getAllImage');
+
+		Route::get('/delete/{id}' , 'ImageController@getDeleteImage');
+
+		Route::get('/edit/{id}' , 'ImageController@getEditImage');
+		Route::post('/edit/{id}' , 'ImageController@postEditImage');
+	});		
 });
+
+
+// User
